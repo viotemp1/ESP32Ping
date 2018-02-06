@@ -23,9 +23,9 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
-extern "C" {
+//extern "C" {
 #include <ping.h>
-}
+//}
 
 #ifdef ENABLE_DEBUG_PING
 #define DEBUG_PING(...) Serial.printf(__VA_ARGS__)
