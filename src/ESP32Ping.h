@@ -24,26 +24,28 @@
 #include <WiFi.h>
 
 extern "C" {
-  #include <ping.h>
+#include <ping.h>
 }
 
 #ifdef ENABLE_DEBUG_PING
-  #define DEBUG_PING(...) Serial.printf(__VA_ARGS__)
+#define DEBUG_PING(...) Serial.printf(__VA_ARGS__)
 #else
-  #define DEBUG_PING(...)
+#define DEBUG_PING(...)
 #endif
 
 class PingClass {
-  public:
+public:
     PingClass();
 
-    bool ping(IPAddress dest,   byte count = 5);
-    bool ping(const char* host, byte count = 5);
+    bool ping(IPAddress dest, byte count = 5);
+
+    bool ping(const char *host, byte count = 5);
 
     int averageTime();
 
-  protected:
+protected:
     static void _ping_sent_cb(void *opt, void *pdata);
+
     static void _ping_recv_cb(void *opt, void *pdata);
 
     IPAddress _dest;

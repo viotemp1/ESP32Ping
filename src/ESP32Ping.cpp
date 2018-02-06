@@ -44,7 +44,7 @@ bool PingClass::ping(IPAddress dest, byte count) {
     _options.sent_function = NULL; //reinterpret_cast<ping_sent_function>(&_ping_sent_cb);
 
     // Let's go!
-    if(ping_start(&_options)) {
+    if (ping_start(&_options)) {
         // Suspend till the process end
         esp_yield();
     }
@@ -52,7 +52,7 @@ bool PingClass::ping(IPAddress dest, byte count) {
     return (_success > 0);
 }
 
-bool PingClass::ping(const char* host, byte count) {
+bool PingClass::ping(const char *host, byte count) {
     IPAddress remote_addr;
 
     if (WiFi.hostByName(host, remote_addr))
@@ -67,7 +67,7 @@ int PingClass::averageTime() {
 
 void PingClass::_ping_recv_cb(void *opt, void *resp) {
     // Cast the parameters to get some usable info
-    ping_resp*   ping_resp = reinterpret_cast<struct ping_resp*>(resp);
+    ping_resp *ping_resp = reinterpret_cast<struct ping_resp *>(resp);
     //ping_option* ping_opt  = reinterpret_cast<struct ping_option*>(opt);
 
     // Error or success?
@@ -81,14 +81,14 @@ void PingClass::_ping_recv_cb(void *opt, void *resp) {
     // Some debug info
     DEBUG_PING(
             "DEBUG: ping reply\n"
-            "\ttotal_count = %d \n"
-            "\tresp_time = %d \n"
-            "\tseqno = %d \n"
-            "\ttimeout_count = %d \n"
-            "\tbytes = %d \n"
-            "\ttotal_bytes = %d \n"
-            "\ttotal_time = %d \n"
-            "\tping_err = %d \n",
+                    "\ttotal_count = %d \n"
+                    "\tresp_time = %d \n"
+                    "\tseqno = %d \n"
+                    "\ttimeout_count = %d \n"
+                    "\tbytes = %d \n"
+                    "\ttotal_bytes = %d \n"
+                    "\ttotal_time = %d \n"
+                    "\tping_err = %d \n",
             ping_resp->total_count, ping_resp->resp_time, ping_resp->seqno,
             ping_resp->timeout_count, ping_resp->bytes, ping_resp->total_bytes,
             ping_resp->total_time, ping_resp->ping_err
