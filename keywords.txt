@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For ESP8266Ping
+# Syntax Coloring Map For ESP32Ping
 #######################################
 
 #######################################
 # Library (KEYWORD3)
 #######################################
 
-ESP8266Ping	KEYWORD3
+ESP32Ping	KEYWORD3
 
 #######################################
 # Datatypes (KEYWORD1)

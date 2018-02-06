@@ -1,6 +1,6 @@
 /*
-  ESP8266Ping - Ping library for ESP8266
-  Copyright (c) 2015 Daniele Colanardi. All rights reserved.
+  ESP32Ping - Ping library for ESP32
+  Copyright (c) 2018 Marian Craciunescu. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -17,11 +17,11 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef ESP8266Ping_H
-#define ESP8266Ping_H
+#ifndef ESP32PING_H
+#define ESP32PING_H
 
 #include <Arduino.h>
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 
 extern "C" {
   #include <ping.h>
@@ -53,7 +53,7 @@ class PingClass {
     static int _avg_time;
 };
 
-#include "ESP8266Ping.impl.h"
+
 PingClass Ping;
 
 #endif

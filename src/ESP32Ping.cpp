@@ -1,6 +1,6 @@
 /*
-  ESP8266Ping - Ping library for ESP8266
-  Copyright (c) 2015 Daniele Colanardi. All rights reserved.
+  ESP32Ping - Ping library for ESP32
+  Copyright (c) 2018 Marian Craciunescu. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -16,6 +16,7 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#include "ESP32Ping.h"
 
 extern "C" void esp_schedule();
 extern "C" void esp_yield();
