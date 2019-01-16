@@ -33,6 +33,17 @@
 #define DEBUG_PING(...)
 #endif
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+void esp_schedule(void);
+void esp_yield(void);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
+
 class PingClass {
 public:
     PingClass();
@@ -56,6 +67,6 @@ protected:
 };
 
 
-PingClass Ping;
+extern PingClass Ping;
 
 #endif

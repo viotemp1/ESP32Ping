@@ -18,8 +18,9 @@
 */
 #include "ESP32Ping.h"
 
-extern "C" void esp_schedule();
-extern "C" void esp_yield();
+
+extern "C" void esp_schedule(void) {};
+extern "C" void esp_yield(void) {};
 
 PingClass::PingClass() {}
 
@@ -110,3 +111,5 @@ byte PingClass::_expected_count = 0;
 byte PingClass::_errors = 0;
 byte PingClass::_success = 0;
 int  PingClass::_avg_time = 0;
+
+PingClass Ping;
