@@ -46,6 +46,7 @@ bool PingClass::ping(IPAddress dest, byte count) {
 
     // Let's go!
     if (ping_start(&_options)) {
+        return true;
         // Suspend till the process end
         esp_yield();
     }
