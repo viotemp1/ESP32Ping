@@ -39,3 +39,5 @@ After `Ping.ping()` has been called, the average response time (in milliseconds)
 ```Arduino
 int avg_time_ms = Ping.averageTime();
 ```
+## Fixed in 1.3
+Memory leak bug ( https://github.com/marian-craciunescu/ESP32Ping/issues/4 )
