@@ -252,10 +252,10 @@ void ping(const char *name, int count, int interval, int size, int timeout) {
 bool ping_start(struct ping_option *ping_o) {
 
 
-    return ping_start(ping_o->ip,ping_o->count,0,0,0);
+    return ping_start(ping_o,ping_o->ip,ping_o->count,0,0,0);
 
 }
-bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int timeout=0) {
+bool ping_start(struct ping_option *ping_o,IPAddress adr, int count=0, int interval=0, int size=0, int timeout=0) {
 //	driver_error_t *error;
     struct sockaddr_in address;
     ip4_addr_t ping_target;
@@ -342,6 +342,7 @@ bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int time
         pingresp.total_bytes = 1;
         pingresp.total_time = mean_time;
         pingresp.ping_err = 0;
+        ping_o->recv_function(ping_o, &pingresp);
         return true;
         //	ping_o->sent_function(ping_o, (uint8*)&pingresp);
     }
