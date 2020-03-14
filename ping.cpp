@@ -236,6 +236,7 @@ static void stop_action(int i) {
 * Operation functions
 *
 */
+/*
 void ping(const char *name, int count, int interval, int size, int timeout) {
     // Resolve name
     hostent * target = gethostbyname(name);
@@ -246,6 +247,8 @@ void ping(const char *name, int count, int interval, int size, int timeout) {
     }
     ping_start(adr, count, interval, size, timeout);
 }
+*/
+
 bool ping_start(struct ping_option *ping_o) {
 
 
@@ -345,6 +348,7 @@ bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int time
     return false;
 }
 
+/*
 bool ping_regist_recv(struct ping_option *ping_opt, ping_recv_function ping_recv)
 {
     if (ping_opt == NULL)
@@ -353,7 +357,9 @@ bool ping_regist_recv(struct ping_option *ping_opt, ping_recv_function ping_recv
     ping_opt->recv_function = ping_recv;
     return true;
 }
+*/
 
+/*
 bool ping_regist_sent(struct ping_option *ping_opt, ping_sent_function ping_sent)
 {
     if (ping_opt == NULL)
@@ -362,3 +368,4 @@ bool ping_regist_sent(struct ping_option *ping_opt, ping_sent_function ping_sent
     ping_opt->sent_function = ping_sent;
     return true;
 }
+*/
