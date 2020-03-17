@@ -236,7 +236,6 @@ static void stop_action(int i) {
 * Operation functions
 *
 */
-/*
 void ping(const char *name, int count, int interval, int size, int timeout) {
     // Resolve name
     hostent * target = gethostbyname(name);
@@ -247,15 +246,14 @@ void ping(const char *name, int count, int interval, int size, int timeout) {
     }
     ping_start(adr, count, interval, size, timeout);
 }
-*/
 
 bool ping_start(struct ping_option *ping_o) {
 
 
-    return ping_start(ping_o,ping_o->ip,ping_o->count,0,0,0);
+    return ping_start(ping_o->ip,ping_o->count,0,0,0,ping_o);
 
 }
-bool ping_start(struct ping_option *ping_o,IPAddress adr, int count=0, int interval=0, int size=0, int timeout=0) {
+bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int timeout=0, struct ping_option *ping_o) {
 //	driver_error_t *error;
     struct sockaddr_in address;
     ip4_addr_t ping_target;
@@ -334,25 +332,27 @@ bool ping_start(struct ping_option *ping_o,IPAddress adr, int count=0, int inter
           received,
           ((((float)transmitted - (float)received) / (float)transmitted) * 100.0)
     );
-
-    ping_resp pingresp;
-    log_i("round-trip min/avg/max/stddev = %.3f/%.3f/%.3f/%.3f ms\r\n", min_time, mean_time, max_time, sqrt(var_time / received));
-    pingresp.total_count = count; //Number of pings
-    pingresp.resp_time = mean_time; //Average time for the pings
-    //pingresp.seqno = 0; //not relevant
-    pingresp.timeout_count = transmitted - received; //number of pings which failed
-    pingresp.bytes = size; //number of bytes received for 1 ping
-    pingresp.total_bytes = size * count; //number of bytes for all pings
-    pingresp.total_time = (millis() - ping_started_time) / 1000.0; //Time consumed for all pings; it takes into account also timeout pings
-    pingresp.ping_err = transmitted - received; //number of pings failed
-    // Call the callback function
-    ping_o->recv_function(ping_o, &pingresp);
+    
+    
+    if (ping_o) {
+        ping_resp pingresp;
+        log_i("round-trip min/avg/max/stddev = %.3f/%.3f/%.3f/%.3f ms\r\n", min_time, mean_time, max_time, sqrt(var_time / received));
+        pingresp.total_count = count; //Number of pings
+        pingresp.resp_time = mean_time; //Average time for the pings
+        pingresp.seqno = 0; //not relevant
+        pingresp.timeout_count = transmitted - received; //number of pings which failed
+        pingresp.bytes = size; //number of bytes received for 1 ping
+        pingresp.total_bytes = size * count; //number of bytes for all pings
+        pingresp.total_time = (millis() - ping_started_time) / 1000.0; //Time consumed for all pings; it takes into account also timeout pings
+        pingresp.ping_err = transmitted - received; //number of pings failed
+        // Call the callback function
+        ping_o->recv_function(ping_o, &pingresp);
+    }
     
     // Return true if at least one ping had a successfull "pong" 
     return (received > 0);
 }
 
-/*
 bool ping_regist_recv(struct ping_option *ping_opt, ping_recv_function ping_recv)
 {
     if (ping_opt == NULL)
@@ -361,9 +361,7 @@ bool ping_regist_recv(struct ping_option *ping_opt, ping_recv_function ping_recv
     ping_opt->recv_function = ping_recv;
     return true;
 }
-*/
 
-/*
 bool ping_regist_sent(struct ping_option *ping_opt, ping_sent_function ping_sent)
 {
     if (ping_opt == NULL)
@@ -372,4 +370,3 @@ bool ping_regist_sent(struct ping_option *ping_opt, ping_sent_function ping_sent
     ping_opt->sent_function = ping_sent;
     return true;
 }
-*/
