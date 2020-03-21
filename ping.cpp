@@ -246,13 +246,14 @@ void ping(const char *name, int count, int interval, int size, int timeout) {
     }
     ping_start(adr, count, interval, size, timeout);
 }
+
 bool ping_start(struct ping_option *ping_o) {
 
 
-    return ping_start(ping_o->ip,ping_o->count,0,0,0);
+    return ping_start(ping_o->ip,ping_o->count,0,0,0,ping_o);
 
 }
-bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int timeout=0) {
+bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int timeout=0, struct ping_option *ping_o) {
 //	driver_error_t *error;
     struct sockaddr_in address;
     ip4_addr_t ping_target;
@@ -331,7 +332,7 @@ bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int time
           ((((float)transmitted - (float)received) / (float)transmitted) * 100.0)
     );
 
-    if (received) {
+    if (ping_o) {
         ping_resp pingresp;
         log_i("round-trip min/avg/max/stddev = %.3f/%.3f/%.3f/%.3f ms\r\n", min_time, mean_time, max_time, sqrt(var_time / received));
         pingresp.total_count = 10;
@@ -339,10 +340,12 @@ bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int time
         pingresp.total_bytes = 1;
         pingresp.total_time = mean_time;
         pingresp.ping_err = 0;
-        return true;
+        ping_o->recv_function(ping_o, &pingresp);
         //	ping_o->sent_function(ping_o, (uint8*)&pingresp);
     }
-    return false;
+    
+    // Return true if at least one ping had a successfull "pong" 
+    return (received > 0);
 }
 
 bool ping_regist_recv(struct ping_option *ping_opt, ping_recv_function ping_recv)
