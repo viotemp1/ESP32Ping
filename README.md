@@ -41,3 +41,5 @@ int avg_time_ms = Ping.averageTime();
 ```
 ## Fixed in 1.3
 Memory leak bug ( https://github.com/marian-craciunescu/ESP32Ping/issues/4 )
+## Fixed in 1.3
+averageTime changed from `int` to `float`.Expect the code to still work , but you should upgrade 

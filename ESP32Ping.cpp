@@ -64,7 +64,7 @@ bool PingClass::ping(const char *host, byte count) {
     return false;
 }
 
-int PingClass::averageTime() {
+float PingClass::averageTime() {
     return _avg_time;
 }
 
@@ -103,13 +103,13 @@ void PingClass::_ping_recv_cb(void *opt, void *resp) {
     
     // just a check ...
     if (_success + _errors != _expected_count) {
-        DEBUG_PING("Somethiong went wrong: _success=%d and _errors=%d do not sum up to _expected_count=%d\n",_success, _errors, _expected_count );
+        DEBUG_PING("Something went wrong: _success=%d and _errors=%d do not sum up to _expected_count=%d\n",_success, _errors, _expected_count );
     }
 }
 
 byte PingClass::_expected_count = 0;
 byte PingClass::_errors = 0;
 byte PingClass::_success = 0;
-int  PingClass::_avg_time = 0;
+float PingClass::_avg_time = 0;
 
 PingClass Ping;
