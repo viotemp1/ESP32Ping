@@ -83,12 +83,12 @@ void PingClass::_ping_recv_cb(void *opt, void *resp) {
     DEBUG_PING(
             "DEBUG: ping reply\n"
                     "\ttotal_count = %d \n"
-                    "\tresp_time = %d \n"
+                    "\tresp_time = %f \n"
                     "\tseqno = %d \n"
                     "\ttimeout_count = %d \n"
                     "\tbytes = %d \n"
                     "\ttotal_bytes = %d \n"
-                    "\ttotal_time = %d \n"
+                    "\ttotal_time = %f \n"
                     "\tping_err = %d \n",
             ping_resp->total_count, ping_resp->resp_time, ping_resp->seqno,
             ping_resp->timeout_count, ping_resp->bytes, ping_resp->total_bytes,
@@ -96,7 +96,7 @@ void PingClass::_ping_recv_cb(void *opt, void *resp) {
     );
 
     // Is it time to end?
-    DEBUG_PING("Avg resp time %d ms\n", _avg_time);
+    DEBUG_PING("Avg resp time %f ms\n", _avg_time);
     
     // Done, return to main functiom
     esp_schedule();
