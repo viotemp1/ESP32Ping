@@ -83,12 +83,12 @@ void PingClass::_ping_recv_cb(void *opt, void *resp) {
     DEBUG_PING(
             "DEBUG: ping reply\n"
                     "\ttotal_count = %d \n"
-                    "\tresp_time = %f \n"
+                    "\tresp_time = %f ms\n"
                     "\tseqno = %d \n"
                     "\ttimeout_count = %d \n"
                     "\tbytes = %d \n"
                     "\ttotal_bytes = %d \n"
-                    "\ttotal_time = %f \n"
+                    "\ttotal_time = %f s\n"
                     "\tping_err = %d \n",
             ping_resp->total_count, ping_resp->resp_time, ping_resp->seqno,
             ping_resp->timeout_count, ping_resp->bytes, ping_resp->total_bytes,
