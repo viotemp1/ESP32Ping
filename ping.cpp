@@ -316,7 +316,8 @@ bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int time
     log_i("PING %s: %d data bytes\r\n",  ipa, size);
 
     ping_seq_num = 0;
-
+    
+    unsigned long ping_started_time = millis();
     while ((ping_seq_num < count) && (!stopped)) {
         if (ping_send(s, &ping_target, size) == ERR_OK) {
             ping_recv(s);
@@ -331,17 +332,21 @@ bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int time
           received,
           ((((float)transmitted - (float)received) / (float)transmitted) * 100.0)
     );
-
+    
+    
     if (ping_o) {
         ping_resp pingresp;
         log_i("round-trip min/avg/max/stddev = %.3f/%.3f/%.3f/%.3f ms\r\n", min_time, mean_time, max_time, sqrt(var_time / received));
-        pingresp.total_count = 10;
-        pingresp.timeout_count = 10;
-        pingresp.total_bytes = 1;
-        pingresp.total_time = mean_time;
-        pingresp.ping_err = 0;
+        pingresp.total_count = count; //Number of pings
+        pingresp.resp_time = mean_time; //Average time for the pings
+        pingresp.seqno = 0; //not relevant
+        pingresp.timeout_count = transmitted - received; //number of pings which failed
+        pingresp.bytes = size; //number of bytes received for 1 ping
+        pingresp.total_bytes = size * count; //number of bytes for all pings
+        pingresp.total_time = (millis() - ping_started_time) / 1000.0; //Time consumed for all pings; it takes into account also timeout pings
+        pingresp.ping_err = transmitted - received; //number of pings failed
+        // Call the callback function
         ping_o->recv_function(ping_o, &pingresp);
-        //	ping_o->sent_function(ping_o, (uint8*)&pingresp);
     }
     
     // Return true if at least one ping had a successfull "pong" 
