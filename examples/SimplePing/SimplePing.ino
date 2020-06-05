@@ -3,8 +3,8 @@
  * It provides some basic measurements on ping messages (avg response time).
  */
 
-#include <ESP8266WiFi.h>
-#include <ESP8266Ping.h>
+#include <WiFi.h>
+#include <ESP32Ping.h>
 
 const char* ssid     = "ssid";
 const char* password = "passphrase";
