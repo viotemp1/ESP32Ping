@@ -2,8 +2,8 @@
  * This example show how to ping a remote machine using it's hostname
  */
 
-#include <ESP8266WiFi.h>
-#include <ESP8266Ping.h>
+#include <WiFi.h>
+#include <ESP32Ping.h>
 
 const char* ssid     = "ssid";
 const char* password = "passphrase";
