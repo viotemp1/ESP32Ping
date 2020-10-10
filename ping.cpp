@@ -94,10 +94,18 @@ static float var_time = 0;
 
 #define PING_ID 0xAFAF
 
+#ifndef PING_DEFAULT_COUNT
 #define PING_DEFAULT_COUNT    10
+#endif
+#ifndef PING_DEFAULT_INTERVAL
 #define PING_DEFAULT_INTERVAL  1
+#endif
+#ifndef PING_DEFAULT_SIZE
 #define PING_DEFAULT_SIZE     32
+#endif
+#ifndef PING_DEFAULT_TIMEOUT
 #define PING_DEFAULT_TIMEOUT   1
+#endif
 
 /*
 * Helper functions
