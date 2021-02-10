@@ -322,7 +322,9 @@ bool ping_start(IPAddress adr, int count=0, int interval=0, int size=0, int time
         if (ping_send(s, &ping_target, size) == ERR_OK) {
             ping_recv(s);
         }
-        delay( interval*1000L);
+        if(ping_seq_num < count){
+            delay( interval*1000L);
+        }
     }
 
     closesocket(s);
