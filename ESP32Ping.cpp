@@ -98,7 +98,7 @@ void PingClass::_ping_recv_cb(void *opt, void *resp) {
     // Is it time to end?
     DEBUG_PING("Avg resp time %f ms\n", _avg_time);
     
-    // Done, return to main functiom
+    // Done, return to main function
     esp_schedule();
     
     // just a check ...
