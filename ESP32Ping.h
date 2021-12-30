@@ -21,7 +21,7 @@
 #define ESP32PING_H
 
 #include <Arduino.h>
-#include <WiFi.h>
+// #include <WiFi.h>
 
 //extern "C" {
 #include <ping.h>
